@@ -1,18 +1,31 @@
-import React from 'react'
-import { Form, InputGroup } from 'react-bootstrap'
+import React, { useState, useEffect } from 'react'
+import { Form, InputGroup, Button } from 'react-bootstrap'
 
-function SearchBar({ searchTerm, onSearchChange }) {
+function SearchBar({ searchTerm = '', onSearchSubmit }) {
+  const [localValue, setLocalValue] = useState(searchTerm)
+
+  useEffect(() => {
+    setLocalValue(searchTerm)
+  }, [searchTerm])
+
+  const submit = (e) => {
+    e?.preventDefault()
+    if (onSearchSubmit) onSearchSubmit(localValue)
+  }
+
   return (
-    <div className="mb-4">
+    <Form onSubmit={submit} className="mb-4">
       <InputGroup>
         <InputGroup.Text></InputGroup.Text>
         <Form.Control
           type="text"
-          value={searchTerm}
-          onChange={(e) => onSearchChange(e.target.value)}
+          value={localValue}
+          onChange={(e) => setLocalValue(e.target.value)}
+          placeholder="Search users by name"
         />
+        <Button variant="primary" type="submit">Search</Button>
       </InputGroup>
-    </div>
+    </Form>
   )
 }
 

@@ -381,7 +381,7 @@ function App() {
       </header>
 
       <Container className="py-3 mb-4">
-        <SearchBar />
+   <SearchBar searchTerm={searchTerm} onSearchSubmit={setSearchTerm} />
 
         {/* {loading && <Spinner ... />} */}
         {/* {error && <Alert ...>{error}</Alert>} */}
